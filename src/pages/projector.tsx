@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../supabase'
+import logo from 'public/logo.png'
+
 
 const ORANGE = '#E8761A'
 
@@ -102,7 +104,7 @@ export default function Projector() {
 
       {/* Logo */}
       <img
-        src="\logo.png"
+        src={logo}
         alt="ABA"
         style={{ width: '80px', position: 'absolute', top: '32px', left: '40px', opacity: 0.6 }}
       />

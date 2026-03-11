@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../supabase'
+import logo from 'public/logo.png'
 
 const ORANGE = '#E8761A'
 
@@ -78,7 +79,7 @@ export default function Teams() {
 
       {/* Header */}
       <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-        <img src="\logo.png" alt="ABA" style={{ width: '72px', marginBottom: '16px' }} />
+        <img src={logo} alt="ABA" style={{ width: '72px', marginBottom: '16px' }} />
         <h1 style={{ color: ORANGE, fontSize: '36px', margin: '0 0 8px 0', letterSpacing: '2px' }}>ABA 9.0</h1>
         <p style={{ color: '#444', fontSize: '11px', letterSpacing: '4px', textTransform: 'uppercase', margin: 0 }}>
           Team Rosters

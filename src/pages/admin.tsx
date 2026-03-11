@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../supabase'
+import logo from 'public/logo.png'
 
 const ORANGE = '#E8761A'
 
@@ -179,7 +180,7 @@ export default function Admin() {
         fontFamily: "'Segoe UI', sans-serif",
         boxSizing: 'border-box'
       }}>
-        <img src="\logo.png" alt="ABA Logo" style={{ width: '100px', marginBottom: '24px' }} />
+        <img src = {logo} alt="ABA Logo" style={{ width: '100px', marginBottom: '24px' }} />
         <div style={{
           background: '#1a1a1a',
           border: `1px solid ${ORANGE}`,
@@ -264,7 +265,7 @@ export default function Admin() {
         gap: '8px',
         overflowY: 'auto'
       }}>
-        <img src="/logo.png" alt="ABA" style={{ width: '60px', margin: '0 auto 20px auto', display: 'block' }} />
+        <img src={logo} alt="ABA" style={{ width: '60px', margin: '0 auto 20px auto', display: 'block' }} />
         <p style={{ color: '#444', fontSize: '11px', letterSpacing: '3px', textTransform: 'uppercase', margin: '0 0 8px 4px' }}>Rounds</p>
         {ROUNDS.map((round, i) => (
           <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '8px' }}>

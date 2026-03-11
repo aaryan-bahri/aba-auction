@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import logo from 'public/logo.png'
 
 const ORANGE = '#E8761A'
 
@@ -22,7 +23,7 @@ export default function Home() {
 
       {/* Logo */}
       <img
-        src="\logo.png"
+        src={logo}
         alt="ABA Logo"
         style={{ width: '260px', marginBottom: '24px' }}
       />

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../supabase'
-import logo from '../public/logo.png'
+import logo from '/logo.png'
 
 
 const ORANGE = '#E8761A'

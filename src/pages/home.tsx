@@ -22,7 +22,7 @@ export default function Home() {
 
       {/* Logo */}
       <img
-        src="/logo.png"
+        src="\logo.png"
         alt="ABA Logo"
         style={{ width: '260px', marginBottom: '24px' }}
       />

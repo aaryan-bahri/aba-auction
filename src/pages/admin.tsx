@@ -179,7 +179,7 @@ export default function Admin() {
         fontFamily: "'Segoe UI', sans-serif",
         boxSizing: 'border-box'
       }}>
-        <img src="/logo.png" alt="ABA Logo" style={{ width: '100px', marginBottom: '24px' }} />
+        <img src="\logo.png" alt="ABA Logo" style={{ width: '100px', marginBottom: '24px' }} />
         <div style={{
           background: '#1a1a1a',
           border: `1px solid ${ORANGE}`,

@@ -102,7 +102,7 @@ export default function Projector() {
 
       {/* Logo */}
       <img
-        src="/logo.png"
+        src="\logo.png"
         alt="ABA"
         style={{ width: '80px', position: 'absolute', top: '32px', left: '40px', opacity: 0.6 }}
       />

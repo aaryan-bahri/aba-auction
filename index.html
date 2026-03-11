@@ -1,27 +1,29 @@
 <!doctype html>
 <html lang="en">
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const path = params.get('path');
-    if (path) {
-      window.history.replaceState(null, '', path);
-    }
-  </script>
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>aba-auction</title>
-  </head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7HMQ35VYSB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-7HMQ35VYSB');
-</script>
+    <!-- Path restore for GitHub Pages 404 redirect -->
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const path = params.get('path');
+      if (path) {
+        window.history.replaceState(null, '', path);
+      }
+    </script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7HMQ35VYSB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7HMQ35VYSB');
+    </script>
+  </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

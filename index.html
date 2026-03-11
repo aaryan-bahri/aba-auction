@@ -1,5 +1,12 @@
 <!doctype html>
 <html lang="en">
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const path = params.get('path');
+    if (path) {
+      window.history.replaceState(null, '', path);
+    }
+  </script>
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/logo.png" />

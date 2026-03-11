@@ -6,7 +6,7 @@ import Home from './pages/home'
 
 export default function App() {
   return (
-    <BrowserRouter>
+     <BrowserRouter basename="/aba-auction/">
       <Routes>
         <Route path="/admin" element={<Admin />} />
         <Route path="/projector" element={<Projector />} />

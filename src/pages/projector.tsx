@@ -234,7 +234,7 @@ export default function Projector() {
                     {currentPlayer.gender} &nbsp;·&nbsp; Tier {currentPlayer.tier}
                   </p>
                   {currentPlayer.notes && (
-                    <p style={{ fontSize: '13px', color: '#444', margin: '8px 0 0 0' }}>
+                    <p style={{ fontSize: '13px', color: '#888', margin: '8px 0 0 0' }}>
                       {currentPlayer.notes}
                     </p>
                   )}

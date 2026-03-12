@@ -139,7 +139,7 @@ export default function Teams() {
                     borderBottom: '1px solid #161616',
                   }}>
                     <span style={{ color: '#ccc', fontSize: '13px' }}>{player.name}</span>
-                    <span style={{ color: '#444', fontSize: '12px' }}>
+                    <span style={{ color: '#888', fontSize: '12px' }}>
                       {player.gender} T{player.tier} &nbsp;·&nbsp; ₹{player.sold_price ? (player.sold_price / 1000000).toFixed(1) : 0}M
                     </span>
                   </div>

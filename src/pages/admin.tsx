@@ -261,11 +261,11 @@ export default function Admin() {
               <h1 style={{ color: 'white', margin: '0 0 12px 0', fontSize: '36px', fontWeight: '700' }}>
                 {currentPlayer.name}
               </h1>
-              <p style={{ color: '#666', margin: '0 0 8px 0', fontSize: '14px' }}>
+              <p style={{ color: '#999', margin: '0 0 8px 0', fontSize: '14px' }}>
                 {currentPlayer.gender} &nbsp;·&nbsp; Tier {currentPlayer.tier}
               </p>
               {currentPlayer.notes && (
-                <p style={{ color: '#555', margin: 0, fontSize: '13px' }}>{currentPlayer.notes}</p>
+                <p style={{ color: '#999', margin: 0, fontSize: '13px' }}>{currentPlayer.notes}</p>
               )}
             </>
           ) : (

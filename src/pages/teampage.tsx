@@ -120,7 +120,7 @@ export default function Teams() {
                   }}>
                     ₹{(team.purse / 1000000).toFixed(1)}M remaining
                   </p>
-                  <p style={{ margin: 0, fontSize: '11px', color: '#333' }}>
+                  <p style={{ margin: 0, fontSize: '11px', color: '#888' }}>
                     {roster.length} players
                   </p>
                 </div>
@@ -149,7 +149,7 @@ export default function Teams() {
               {/* Total spent */}
               {roster.length > 0 && (
                 <div style={{ marginTop: '12px', paddingTop: '10px', borderTop: '1px solid #1e1e1e' }}>
-                  <p style={{ margin: 0, fontSize: '12px', color: '#444', textAlign: 'right' }}>
+                  <p style={{ margin: 0, fontSize: '12px', color: '#888', textAlign: 'right' }}>
                     Total spent: ₹{(spent / 1000000).toFixed(1)}M
                   </p>
                 </div>

@@ -43,9 +43,7 @@ export default function Admin() {
   const [pin, setPin] = useState('')
   const [unlocked, setUnlocked] = useState(false)
 
-  useEffect(() => {
-    fetchData()
-  }, [])
+  useEffect(() => { fetchData() }, [])
 
   async function fetchData() {
     const { data: playerData } = await supabase.from('players').select('*')
@@ -60,10 +58,10 @@ export default function Admin() {
   }
 
   function effectivePurse(team: Team): number {
-  const rosterSize = players.filter(p => p.sold_to_team === team.name).length
-  const requiredReserve = Math.max(0, (6 - rosterSize) - 1) * 1000000
-  return team.purse - requiredReserve
-}
+    const rosterSize = players.filter(p => p.sold_to_team === team.name).length
+    const requiredReserve = Math.max(0, (6 - rosterSize) - 1) * 1000000
+    return team.purse - requiredReserve
+  }
 
   function pickRandomPlayer(roundIndex: number, finalCall: boolean) {
     const round = ROUNDS[roundIndex]
@@ -73,22 +71,18 @@ export default function Admin() {
       !p.sold &&
       p.final_call === finalCall
     )
-
     if (pool.length === 0) {
       alert(finalCall
         ? 'No players left in Final Call for this round!'
-        : 'All players in this round have been seen! Use Final Call to re-auction unsold players.'
-      )
+        : 'All players in this round have been seen! Use Final Call to re-auction unsold players.')
       return
     }
-
     const random = pool[Math.floor(Math.random() * pool.length)]
     setCurrentPlayer(random)
     setActiveRound(roundIndex)
     setIsFinalCall(finalCall)
     setBidPrice('')
     setSelectedTeamId('')
-
     updateAuctionState({
       current_player_id: random.id,
       current_round: roundIndex,
@@ -103,33 +97,21 @@ export default function Admin() {
     if (!currentPlayer) return alert('No player selected!')
     if (!bidPrice) return alert('Enter a bid price!')
     if (!selectedTeamId) return alert('Select a team!')
-
     const team = teams.find(t => t.id === Number(selectedTeamId))
     if (!team) return
-
-    if (Number(bidPrice) * 1000000 > 115000000) {
-      return alert('No player can be sold for more than ₹115M!')
-    }
-
+    if (Number(bidPrice) * 1000000 > 115000000)
+      return alert('No player can be sold for more than 115M!')
     if (Number(bidPrice) * 1000000 > effectivePurse(team)) {
       const rosterSize = players.filter(p => p.sold_to_team === team.name).length
       const reserve = Math.max(0, (6 - rosterSize) - 1)
-      return alert(`${team.name} can't afford this bid! They must keep ₹${reserve}M in reserve for remaining roster spots.`)
+      return alert(`${team.name} cannot afford this bid! They must keep ${reserve}M in reserve for remaining roster spots.`)
     }
-
-    const { error: playerError } = await supabase.from('players').update({
-      sold: true,
-      sold_to_team: team.name,
-      sold_price: Number(bidPrice) * 1000000,
+    await supabase.from('players').update({
+      sold: true, sold_to_team: team.name, sold_price: Number(bidPrice) * 1000000
     }).eq('id', currentPlayer.id)
-
-    const { error: teamError } = await supabase.from('teams').update({
+    await supabase.from('teams').update({
       purse: team.purse - Number(bidPrice) * 1000000
     }).eq('id', team.id)
-
-    if (playerError) console.error('Player update failed:', playerError)
-    if (teamError) console.error('Team update failed:', teamError)
-
     setPlayers(prev => prev.map(p =>
       p.id === currentPlayer.id
         ? { ...p, sold: true, sold_to_team: team.name, sold_price: Number(bidPrice) * 1000000 }
@@ -138,7 +120,6 @@ export default function Admin() {
     setTeams(prev => prev.map(t =>
       t.id === team.id ? { ...t, purse: t.purse - Number(bidPrice) * 1000000 } : t
     ))
-
     await updateAuctionState({ status: 'sold' })
     setCurrentPlayer(null)
     setBidPrice('')
@@ -147,7 +128,6 @@ export default function Admin() {
 
   async function handleUnsold() {
     if (!currentPlayer) return alert('No player selected!')
-
     if (isFinalCall) {
       await supabase.from('players').update({ final_call: false }).eq('id', currentPlayer.id)
       setPlayers(prev => prev.map(p =>
@@ -159,35 +139,23 @@ export default function Admin() {
         p.id === currentPlayer.id ? { ...p, final_call: true } : p
       ))
     }
-
     await updateAuctionState({ status: 'unsold' })
     setCurrentPlayer(null)
     setBidPrice('')
     setSelectedTeamId('')
   }
 
-  // PIN screen
   if (!unlocked) {
     return (
       <div style={{
-        minHeight: '100vh',
-        width: '100%',
-        background: '#000000',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: "'Segoe UI', sans-serif",
-        boxSizing: 'border-box'
+        minHeight: '100vh', width: '100%', background: '#000000',
+        display: 'flex', flexDirection: 'column', alignItems: 'center',
+        justifyContent: 'center', fontFamily: "'Segoe UI', sans-serif", boxSizing: 'border-box'
       }}>
-        <img src = {logo} alt="ABA Logo" style={{ width: '100px', marginBottom: '24px' }} />
+        <img src={logo} alt="ABA Logo" style={{ width: '100px', marginBottom: '24px' }} />
         <div style={{
-          background: '#1a1a1a',
-          border: `1px solid ${ORANGE}`,
-          borderRadius: '16px',
-          padding: '48px',
-          textAlign: 'center',
-          minWidth: '320px'
+          background: '#1a1a1a', border: `1px solid ${ORANGE}`, borderRadius: '16px',
+          padding: '48px', textAlign: 'center', minWidth: '320px'
         }}>
           <h2 style={{ color: 'white', margin: '0 0 8px 0', fontSize: '22px' }}>Admin Access</h2>
           <p style={{ color: '#555', fontSize: '11px', letterSpacing: '3px', textTransform: 'uppercase', margin: '0 0 32px 0' }}>
@@ -205,18 +173,10 @@ export default function Admin() {
               }
             }}
             style={{
-              fontSize: '28px',
-              padding: '12px',
-              width: '100%',
-              borderRadius: '8px',
-              border: '1px solid #333',
-              background: '#000000',
-              color: 'white',
-              textAlign: 'center',
-              boxSizing: 'border-box',
-              marginBottom: '16px',
-              outline: 'none',
-              letterSpacing: '8px'
+              fontSize: '28px', padding: '12px', width: '100%', borderRadius: '8px',
+              border: '1px solid #333', background: '#000000', color: 'white',
+              textAlign: 'center', boxSizing: 'border-box', marginBottom: '16px',
+              outline: 'none', letterSpacing: '8px'
             }}
           />
           <button
@@ -225,17 +185,9 @@ export default function Admin() {
               else { alert('Incorrect PIN'); setPin('') }
             }}
             style={{
-              width: '100%',
-              padding: '14px',
-              background: ORANGE,
-              color: 'white',
-              fontSize: '14px',
-              fontWeight: '600',
-              border: 'none',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              letterSpacing: '2px',
-              textTransform: 'uppercase'
+              width: '100%', padding: '14px', background: ORANGE, color: 'white',
+              fontSize: '14px', fontWeight: '600', border: 'none', borderRadius: '8px',
+              cursor: 'pointer', letterSpacing: '2px', textTransform: 'uppercase'
             }}
           >
             Unlock
@@ -256,14 +208,8 @@ export default function Admin() {
 
       {/* LEFT SIDEBAR */}
       <div style={{
-        width: '210px',
-        background: '#111',
-        borderRight: '1px solid #1e1e1e',
-        padding: '24px 16px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '8px',
-        overflowY: 'auto'
+        width: '210px', background: '#111', borderRight: '1px solid #1e1e1e',
+        padding: '24px 16px', display: 'flex', flexDirection: 'column', gap: '8px', overflowY: 'auto'
       }}>
         <img src={logo} alt="ABA" style={{ width: '60px', margin: '0 auto 20px auto', display: 'block' }} />
         <p style={{ color: '#444', fontSize: '11px', letterSpacing: '3px', textTransform: 'uppercase', margin: '0 0 8px 4px' }}>Rounds</p>
@@ -276,11 +222,7 @@ export default function Admin() {
                 background: activeRound === i && !isFinalCall ? ORANGE : 'transparent',
                 color: activeRound === i && !isFinalCall ? 'white' : '#aaa',
                 border: `1px solid ${activeRound === i && !isFinalCall ? ORANGE : '#2a2a2a'}`,
-                borderRadius: '8px',
-                cursor: 'pointer',
-                textAlign: 'left',
-                fontSize: '12px',
-                fontWeight: '500'
+                borderRadius: '8px', cursor: 'pointer', textAlign: 'left', fontSize: '12px', fontWeight: '500'
               }}
             >
               {round.label} — {round.sublabel}
@@ -292,10 +234,7 @@ export default function Admin() {
                 background: activeRound === i && isFinalCall ? '#3a1a05' : 'transparent',
                 color: activeRound === i && isFinalCall ? ORANGE : '#555',
                 border: `1px solid ${activeRound === i && isFinalCall ? ORANGE : '#222'}`,
-                borderRadius: '8px',
-                cursor: 'pointer',
-                textAlign: 'left',
-                fontSize: '11px',
+                borderRadius: '8px', cursor: 'pointer', textAlign: 'left', fontSize: '11px'
               }}
             >
               Final Call R{i + 1}
@@ -305,7 +244,7 @@ export default function Admin() {
       </div>
 
       {/* MAIN AREA */}
-      <div style={{ flex: 1, padding: '40px', background: '#000000', overflowY: 'auto' }}>
+      <div style={{ flex: 1, padding: '40px', background: '#000000', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
         <p style={{ color: '#444', fontSize: '11px', letterSpacing: '3px', textTransform: 'uppercase', margin: '0 0 24px 0' }}>
           {activeRound !== null
             ? `${isFinalCall ? 'Final Call — ' : ''}${ROUNDS[activeRound].label} — ${ROUNDS[activeRound].sublabel}`
@@ -314,11 +253,8 @@ export default function Admin() {
 
         {/* Player Card */}
         <div style={{
-          background: '#1a1a1a',
-          border: `1px solid ${currentPlayer ? ORANGE : '#222'}`,
-          borderRadius: '12px',
-          padding: '32px',
-          marginBottom: '24px',
+          background: '#1a1a1a', border: `1px solid ${currentPlayer ? ORANGE : '#222'}`,
+          borderRadius: '12px', padding: '32px', marginBottom: '16px'
         }}>
           {currentPlayer ? (
             <>
@@ -337,16 +273,11 @@ export default function Admin() {
           )}
         </div>
 
-        {/* Bidding Controls */}
+        {/* Bid Input + Sold/Unsold Row */}
         <div style={{
-          background: '#1a1a1a',
-          border: '1px solid #222',
-          borderRadius: '12px',
-          padding: '28px',
-          display: 'flex',
-          gap: '20px',
-          alignItems: 'flex-end',
-          flexWrap: 'wrap'
+          background: '#1a1a1a', border: '1px solid #222', borderRadius: '12px',
+          padding: '24px 28px', display: 'flex', gap: '20px', alignItems: 'flex-end',
+          flexWrap: 'wrap', marginBottom: '16px'
         }}>
           <div>
             <label style={{ color: '#555', fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' }}>
@@ -363,14 +294,8 @@ export default function Admin() {
                   if (val !== '') updateAuctionState({ current_bid: Number(val) * 1000000 })
                 }}
                 style={{
-                  fontSize: '28px',
-                  width: '140px',
-                  padding: '10px 12px',
-                  color: 'white',
-                  background: '#000000',
-                  border: '1px solid #333',
-                  borderRadius: '8px',
-                  outline: 'none'
+                  fontSize: '28px', width: '140px', padding: '10px 12px', color: 'white',
+                  background: '#000000', border: '1px solid #333', borderRadius: '8px', outline: 'none'
                 }}
               />
               <span style={{ fontSize: '18px', color: '#555' }}>M</span>
@@ -382,96 +307,88 @@ export default function Admin() {
             )}
           </div>
 
-          <div>
-            <label style={{ color: '#555', fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' }}>
-              Bidding Team
-            </label>
-            <div style={{ marginTop: '8px' }}>
-              <select
-                value={selectedTeamId}
-                onChange={e => {
-                  setSelectedTeamId(Number(e.target.value))
-                  const team = teams.find(t => t.id === Number(e.target.value))
-                  if (team) updateAuctionState({ bidding_team: team.name })
-                }}
-                style={{
-                  fontSize: '16px',
-                  padding: '10px 12px',
-                  color: 'white',
-                  background: '#000000',
-                  border: '1px solid #333',
-                  borderRadius: '8px',
-                  outline: 'none',
-                  minWidth: '220px'
-                }}
-              >
-                <option value=''>Select team...</option>
-                {teams.map(team => {
-                  const available = effectivePurse(team)
-                  const rosterSize = players.filter(p => p.sold_to_team === team.name).length
-                  const canAfford = typeof bidPrice !== 'number' || bidPrice * 1000000 <= available
-                  const overCap = typeof bidPrice === 'number' && bidPrice * 1000000 > 115000000
-
-                  return (
-                    <option
-                      key={team.id}
-                      value={team.id}
-                      disabled={!canAfford || overCap}
-                    >
-                      {team.name} — ₹{(available / 1000000).toFixed(1)}M available ({rosterSize}/6 players)
-                      {!canAfford ? ' (insufficient funds)' : ''}
-                    </option>
-                  )
-                })}
-              </select>
-            </div>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: '12px' }}>
+            <button
+              onClick={handleSold}
+              style={{
+                padding: '12px 32px', background: ORANGE, color: 'white', fontSize: '13px',
+                fontWeight: '600', border: 'none', borderRadius: '8px', cursor: 'pointer',
+                letterSpacing: '2px', textTransform: 'uppercase'
+              }}
+            >
+              Sold
+            </button>
+            <button
+              onClick={handleUnsold}
+              style={{
+                padding: '12px 32px', background: 'transparent', color: '#666', fontSize: '13px',
+                fontWeight: '600', border: '1px solid #333', borderRadius: '8px', cursor: 'pointer',
+                letterSpacing: '2px', textTransform: 'uppercase'
+              }}
+            >
+              Unsold
+            </button>
           </div>
+        </div>
 
-          <button
-            onClick={handleSold}
-            style={{
-              padding: '12px 32px',
-              background: ORANGE,
-              color: 'white',
-              fontSize: '13px',
-              fontWeight: '600',
-              border: 'none',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              letterSpacing: '2px',
-              textTransform: 'uppercase'
-            }}
-          >
-            Sold
-          </button>
-
-          <button
-            onClick={handleUnsold}
-            style={{
-              padding: '12px 32px',
-              background: 'transparent',
-              color: '#666',
-              fontSize: '13px',
-              fontWeight: '600',
-              border: '1px solid #333',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              letterSpacing: '2px',
-              textTransform: 'uppercase'
-            }}
-          >
-            Unsold
-          </button>
+        {/* Team Buttons Grid */}
+        <div style={{
+          background: '#1a1a1a', border: '1px solid #222', borderRadius: '12px',
+          padding: '24px 28px', flex: 1
+        }}>
+          <label style={{ color: '#555', fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' }}>
+            Bidding Team
+          </label>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
+            gap: '10px',
+            marginTop: '12px'
+          }}>
+            {teams.map(team => {
+              const overCap = typeof bidPrice === 'number' && bidPrice * 1000000 > 115000000
+              const affordable = !overCap && !(typeof bidPrice === 'number' && bidPrice * 1000000 > effectivePurse(team))
+              const isSelected = selectedTeamId === team.id
+              return (
+                <button
+                  key={team.id}
+                  disabled={!affordable}
+                  onClick={() => {
+                    setSelectedTeamId(team.id)
+                    updateAuctionState({ bidding_team: team.name })
+                  }}
+                  onMouseEnter={e => {
+                    if (affordable) e.currentTarget.style.background = 'rgba(232, 118, 26, 0.15)'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.background = isSelected ? ORANGE : 'transparent'
+                  }}
+                  style={{
+                    padding: '12px 14px',
+                    background: isSelected ? ORANGE : 'transparent',
+                    color: isSelected ? 'white' : affordable ? '#aaa' : '#333',
+                    border: `1px solid ${isSelected ? ORANGE : affordable ? '#444' : '#222'}`,
+                    borderRadius: '8px',
+                    cursor: affordable ? 'pointer' : 'not-allowed',
+                    fontSize: '12px', textAlign: 'left', transition: 'all 0.15s', width: '100%',
+                  }}
+                >
+                  <div style={{ fontWeight: '600', marginBottom: '4px' }}>{team.name}</div>
+                  <div style={{ fontSize: '11px', opacity: 0.7 }}>
+                    ₹{(effectivePurse(team) / 1000000).toFixed(1)}M
+                    {overCap ? ' — exceeds cap' : !affordable ? ' — insufficient' : ''}
+                  </div>
+                </button>
+              )
+            })}
+          </div>
         </div>
       </div>
 
       {/* RIGHT SIDEBAR */}
       <div style={{
-        width: '220px',
-        background: '#111',
-        borderLeft: '1px solid #1e1e1e',
-        padding: '24px 16px',
-        overflowY: 'auto'
+        width: '220px', background: '#111', borderLeft: '1px solid #1e1e1e',
+        padding: '24px 16px', overflowY: 'auto'
       }}>
         <p style={{ color: '#444', fontSize: '11px', letterSpacing: '3px', textTransform: 'uppercase', margin: '0 0 16px 0' }}>
           Team Purses
@@ -479,11 +396,7 @@ export default function Admin() {
         {teams.map(team => (
           <div key={team.id} style={{ padding: '10px 0', borderBottom: '1px solid #1a1a1a' }}>
             <p style={{ color: '#ccc', fontSize: '12px', margin: '0 0 2px 0' }}>{team.name}</p>
-            <p style={{
-              margin: 0,
-              fontSize: '12px',
-              color: team.purse < 20000000 ? '#c0392b' : ORANGE
-            }}>
+            <p style={{ margin: 0, fontSize: '12px', color: team.purse < 20000000 ? '#c0392b' : ORANGE }}>
               ₹{(team.purse / 1000000).toFixed(1)}M
             </p>
           </div>

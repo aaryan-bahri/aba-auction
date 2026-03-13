@@ -16,7 +16,7 @@ export default function Footer() {
       gap: '16px',
       zIndex: 1000,
     }}>
-      <span style={{ color: 'ORANGE', fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' }}>
+      <span style={{ color: ORANGE, fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase' }}>
         &copy; {new Date().getFullYear()} ABA 9.0
       </span>
       <span style={{ color: '#222', fontSize: '11px' }}>—</span>

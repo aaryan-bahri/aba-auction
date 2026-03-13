@@ -30,7 +30,7 @@ const ROUNDS = [
   { label: 'Round 4', sublabel: 'CM T3 & T4',  gender: 'CM',  tiers: [3, 4] },
 ]
 
-const ADMIN_PIN = '1234'
+
 
 export default function Admin() {
   const [players, setPlayers] = useState<Player[]>([])
@@ -59,6 +59,18 @@ export default function Admin() {
   async function updateAuctionState(updates: object) {
     await supabase.from('auction_state').update(updates).eq('id', 1)
   }
+
+  async function checkPin(submittedPin: string) {
+  const { data, error } = await supabase.functions.invoke('verify-pin', {
+    body: { pin: submittedPin }
+  })
+  if (error || !data.success) {
+    alert('Incorrect PIN')
+    setPin('')
+  } else {
+    setUnlocked(true)
+  }
+}
 
   function effectivePurse(team: Team): number {
     const rosterSize = players.filter(p => p.sold_to_team === team.name).length
@@ -173,10 +185,7 @@ export default function Admin() {
             value={pin}
             onChange={e => setPin(e.target.value)}
             onKeyDown={e => {
-              if (e.key === 'Enter') {
-                if (pin === ADMIN_PIN) setUnlocked(true)
-                else { alert('Incorrect PIN'); setPin('') }
-              }
+              if (e.key === 'Enter') checkPin(pin)
             }}
             style={{
               fontSize: '28px', padding: '12px', width: '100%', borderRadius: '8px',
@@ -186,10 +195,7 @@ export default function Admin() {
             }}
           />
           <button
-            onClick={() => {
-              if (pin === ADMIN_PIN) setUnlocked(true)
-              else { alert('Incorrect PIN'); setPin('') }
-            }}
+            onClick={() => checkPin(pin)}
             style={{
               width: '100%', padding: '14px', background: ORANGE, color: 'white',
               fontSize: '14px', fontWeight: '600', border: 'none', borderRadius: '8px',

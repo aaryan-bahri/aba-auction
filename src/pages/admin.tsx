@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../supabase'
 import logo from '/logo.png'
+import Footer from '../components/footer'
 
 const ORANGE = '#E8761A'
 
@@ -151,7 +152,8 @@ export default function Admin() {
       <div style={{
         minHeight: '100vh', width: '100%', background: '#000000',
         display: 'flex', flexDirection: 'column', alignItems: 'center',
-        justifyContent: 'center', fontFamily: "'Segoe UI', sans-serif", boxSizing: 'border-box'
+        justifyContent: 'center', fontFamily: "'Segoe UI', sans-serif", boxSizing: 'border-box',
+        paddingBottom: '52px'
       }}>
         <img src={logo} alt="ABA Logo" style={{ width: '100px', marginBottom: '24px' }} />
         <div style={{
@@ -403,7 +405,8 @@ export default function Admin() {
           </div>
         ))}
       </div>
-
+        <Footer />
     </div>
+    
   )
 }

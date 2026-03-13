@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../supabase'
 import logo from '/logo.png'
+import Footer from '../components/footer'
+
 
 const ORANGE = '#E8761A'
 
@@ -74,7 +76,8 @@ export default function Teams() {
       color: 'white',
       fontFamily: "'Segoe UI', sans-serif",
       padding: '40px',
-      boxSizing: 'border-box'
+      boxSizing: 'border-box',
+      paddingBottom: '52px'
     }}>
 
       {/* Header */}
@@ -158,6 +161,7 @@ export default function Teams() {
           )
         })}
       </div>
+              <Footer />
     </div>
   )
 }

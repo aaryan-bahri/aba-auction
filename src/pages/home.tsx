@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import logo from '/logo.png'
+import Footer from '../components/footer'
+
 
 const ORANGE = '#E8761A'
 
@@ -54,6 +56,7 @@ export default function Home() {
         <NavCard title="View Live" subtitle="Live auction display" onClick={() => navigate('/projector')} />
         <NavCard title="View Teams" subtitle="View rosters & purses" onClick={() => navigate('/teams')} />
       </div>
+      <Footer />  
     </div>
   )
 }
@@ -90,5 +93,6 @@ function NavCard({ title, subtitle, onClick }: {
       </h2>
       <p style={{ color: '#666', fontSize: '13px', margin: 0 }}>{subtitle}</p>
     </div>
+    
   )
 }

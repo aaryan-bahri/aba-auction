@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../supabase'
 import logo from '/logo.png'
+import Footer from '../components/footer'
+
 
 const ORANGE = '#E8761A'
 
@@ -273,6 +275,7 @@ export default function Projector() {
           </>
         )}
       </div>
+        <Footer />
     </>
   )
 }

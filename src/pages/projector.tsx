@@ -112,11 +112,11 @@ export default function Projector() {
           margin-bottom: 32px;
           padding: 28px 20px;
           width: 92%;
-          max-width: 560px;
+          max-width: 720px;
           box-sizing: border-box;
         }
         .player-name {
-          font-size: 28px;
+          font-size: 20px;
           margin: 0 0 12px 0;
           color: white;
           font-weight: 700;
@@ -144,10 +144,11 @@ export default function Projector() {
         @media (min-width: 768px) {
           .projector-card {
             padding: 48px 64px;
-            width: auto;
+            width: 80%;
+            max-width: 720px;
           }
           .player-name {
-            font-size: 52px;
+            font-size: 40px;
           }
           .bid-row {
             gap: 80px;
@@ -227,7 +228,7 @@ export default function Projector() {
             >
               {currentPlayer ? (
                 <>
-                  <div style={{ margin: '0 auto 20px auto', maxWidth: '160px' }}>
+                  <div style={{ margin: '0 auto 20px auto', maxWidth: '280px' }}>
                     <img
                       src={currentPlayer.photo_url || 'https://www.gravatar.com/avatar/?d=mp&s=200'}
                       alt={currentPlayer.name}
@@ -239,12 +240,12 @@ export default function Projector() {
                   </div>
                  <h1 className="player-name">{currentPlayer.name}</h1>
                   <p style={{ 
-                    fontSize: '24px', color: ORANGE, margin: '0 0 8px 0', 
+                    fontSize: '20px', color: ORANGE, margin: '0 0 8px 0', 
                     letterSpacing: '3px', textTransform: 'uppercase', fontWeight: '600' 
                   }}>
                     {currentPlayer.position || 'PLAYER'}
                   </p>
-                  <p style={{ fontSize: '24px', color: '#888', margin: '0 0 8px 0', letterSpacing: '2px', textTransform: 'uppercase' }}>
+                  <p style={{ fontSize: '20px', color: '#888', margin: '0 0 8px 0', letterSpacing: '2px', textTransform: 'uppercase' }}>
                     {currentPlayer.gender} &nbsp;·&nbsp; Tier {currentPlayer.tier}
                   </p>
                   {currentPlayer.notes && (
@@ -262,27 +263,23 @@ export default function Projector() {
 
             {/* Bid Info */}
             <div className="bid-row">
-              <div>
-                <p style={{ color: '#333', fontSize: '10px', margin: '0 0 8px 0', textTransform: 'uppercase', letterSpacing: '3px' }}>
-                  Current Bid
-                </p>
-                <p className="bid-amount" style={{ color: ORANGE }}>
-                  {auctionState?.current_bid
-                    ? `₹${(auctionState.current_bid / 1000000).toFixed(1)}M`
-                    : '—'}
-                </p>
-              </div>
+              <div style={{ textAlign: 'center' }}>
+              <p style={{ color: '#777', fontSize: '10px', margin: '0 0 8px 0', textTransform: 'uppercase', letterSpacing: '3px' }}>
+                Current Bid
+              </p>
+              <p className="bid-amount" style={{ color: ORANGE }}>
+                {auctionState?.current_bid
+                  ? `₹${auctionState.current_bid.toLocaleString()}`
+                  : '—'}
+              </p>
+              <p style={{ color: '#777', fontSize: '10px', margin: '16px 0 8px 0', textTransform: 'uppercase', letterSpacing: '3px' }}>
+                Bidding Team
+              </p>
+              <p className="bid-amount" style={{ color: 'white' }}>
+                {auctionState?.bidding_team || '—'}
+              </p>
+            </div>
 
-              <div style={{ width: '1px', background: '#1e1e1e', alignSelf: 'stretch' }} />
-
-              <div>
-                <p style={{ color: '#333', fontSize: '10px', margin: '0 0 8px 0', textTransform: 'uppercase', letterSpacing: '3px' }}>
-                  Bidding Team
-                </p>
-                <p className="bid-amount" style={{ color: 'white' }}>
-                  {auctionState?.bidding_team || '—'}
-                </p>
-              </div>
             </div>
           </>
         )}

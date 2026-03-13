@@ -4,7 +4,6 @@ import logo from '/logo.png'
 import Footer from '../components/footer'
 
 const ORANGE = '#E8761A'
-const [isRTM, setIsRTM] = useState(false)
 
 type Player = {
   id: number
@@ -44,6 +43,8 @@ export default function Admin() {
   const [selectedTeamId, setSelectedTeamId] = useState<number | ''>('')
   const [pin, setPin] = useState('')
   const [unlocked, setUnlocked] = useState(false)
+  const [isRTM, setIsRTM] = useState(false)
+
 
   useEffect(() => { fetchData() }, [])
 

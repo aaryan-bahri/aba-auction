@@ -81,12 +81,13 @@ export default function Admin() {
     setCurrentPlayer(random)
     setActiveRound(roundIndex)
     setIsFinalCall(finalCall)
-    setBidPrice('')
+    const defaultBid = finalCall ? 1 : random.tier === 1 ? 5 : random.tier === 2 ? 3 : random.tier === 3 ? 2 : 1
+    setBidPrice(defaultBid)
     setSelectedTeamId('')
     updateAuctionState({
       current_player_id: random.id,
       current_round: roundIndex,
-      current_bid: 0,
+      current_bid: defaultBid * 1000000,
       bidding_team: null,
       is_final_call: finalCall,
       status: null

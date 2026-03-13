@@ -4,6 +4,7 @@ import logo from '/logo.png'
 import Footer from '../components/footer'
 
 const ORANGE = '#E8761A'
+const [isRTM, setIsRTM] = useState(false)
 
 type Player = {
   id: number
@@ -122,10 +123,11 @@ export default function Admin() {
     setTeams(prev => prev.map(t =>
       t.id === team.id ? { ...t, purse: t.purse - Number(bidPrice) * 1000000 } : t
     ))
-    await updateAuctionState({ status: 'sold' })
+    await updateAuctionState({ status: isRTM ? 'sold_rtm' : 'sold' })
     setCurrentPlayer(null)
     setBidPrice('')
     setSelectedTeamId('')
+    setIsRTM(false)
   }
 
   async function handleUnsold() {
@@ -331,6 +333,15 @@ export default function Admin() {
             >
               Unsold
             </button>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#aaa', fontSize: '13px', cursor: 'pointer' }}>
+              <input
+                type="checkbox"
+                checked={isRTM}
+                onChange={e => setIsRTM(e.target.checked)}
+                style={{ accentColor: ORANGE, width: '16px', height: '16px', cursor: 'pointer' }}
+              />
+              RTM
+            </label>
           </div>
         </div>
 

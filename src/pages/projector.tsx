@@ -48,7 +48,7 @@ export default function Projector() {
         const newState = payload.new as AuctionState
         setAuctionState(newState)
 
-        if (newState.status === 'sold' || newState.status === 'unsold') {
+        if (newState.status === 'sold' || newState.status === 'sold_rtm' || newState.status === 'unsold')  {
           setTimeout(() => {
             setAuctionState(prev => prev ? { ...prev, status: null, current_player_id: null, current_bid: 0, bidding_team: null } : null)
             setCurrentPlayer(null)
@@ -68,7 +68,7 @@ export default function Projector() {
   async function fetchAuctionState() {
     const { data } = await supabase.from('auction_state').select('*').eq('id', 1).single()
     if (data) {
-      if (data.status === 'sold' || data.status === 'unsold') {
+      if (data.status === 'sold' || data.status === 'sold_rtm' || data.status === 'unsold') {
         await supabase.from('auction_state').update({ status: null }).eq('id', 1)
         setAuctionState({ ...data, status: null })
         setCurrentPlayer(null)
@@ -173,13 +173,18 @@ export default function Projector() {
         />
 
         {/* SOLD overlay */}
-        {auctionState?.status === 'sold' && (
-          <div style={{ textAlign: 'center', padding: '0 16px' }}>
+        {(auctionState?.status === 'sold' || auctionState?.status === 'sold_rtm') && (
+          <div style={{ textAlign: 'center' }}>
             <h1 className="sold-title" style={{ color: ORANGE }}>SOLD</h1>
             <p className="sold-sub" style={{ color: 'white', margin: '0 0 8px 0' }}>
               {currentPlayer?.name} — {auctionState.bidding_team}
             </p>
-            <p style={{ fontSize: '16px', color: '#555', margin: 0 }}>
+            {auctionState?.status === 'sold_rtm' && (
+              <p style={{ color: ORANGE, fontSize: '18px', letterSpacing: '3px', textTransform: 'uppercase', margin: '8px 0 0 0' }}>
+                {auctionState.bidding_team} used RTM
+              </p>
+            )}
+            <p style={{ fontSize: '16px', color: '#555', margin: '8px 0 0 0' }}>
               {auctionState.current_bid ? `₹${(auctionState.current_bid / 1000000).toFixed(1)}M` : ''}
             </p>
           </div>

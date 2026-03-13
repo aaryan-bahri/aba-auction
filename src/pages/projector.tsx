@@ -13,6 +13,7 @@ type Player = {
   tier: number
   notes: string
   photo_url: string | null
+  position: string | null
 }
 
 type AuctionState = {
@@ -115,7 +116,7 @@ export default function Projector() {
           box-sizing: border-box;
         }
         .player-name {
-          font-size: 32px;
+          font-size: 28px;
           margin: 0 0 12px 0;
           color: white;
           font-weight: 700;
@@ -205,10 +206,10 @@ export default function Projector() {
             <div style={{ marginBottom: '20px', textAlign: 'center' }}>
               {round ? (
                 <>
-                  <p style={{ color: ORANGE, fontSize: '11px', margin: 0, textTransform: 'uppercase', letterSpacing: '4px' }}>
+                  <p style={{ color: ORANGE, fontSize: '18px', margin: 0, textTransform: 'uppercase', letterSpacing: '4px' }}>
                     {auctionState?.is_final_call ? 'Final Call — ' : ''}{round.label}
                   </p>
-                  <p style={{ color: '#444', fontSize: '11px', margin: '6px 0 0 0', letterSpacing: '3px' }}>
+                  <p style={{ color: '#444', fontSize: '18px', margin: '6px 0 0 0', letterSpacing: '3px' }}>
                     {round.sublabel}
                   </p>
                 </>
@@ -236,12 +237,18 @@ export default function Projector() {
                       }}
                     />
                   </div>
-                  <h1 className="player-name">{currentPlayer.name}</h1>
-                  <p style={{ fontSize: '13px', color: '#555', margin: '0 0 8px 0', letterSpacing: '2px', textTransform: 'uppercase' }}>
+                 <h1 className="player-name">{currentPlayer.name}</h1>
+                  <p style={{ 
+                    fontSize: '24px', color: ORANGE, margin: '0 0 8px 0', 
+                    letterSpacing: '3px', textTransform: 'uppercase', fontWeight: '600' 
+                  }}>
+                    {currentPlayer.position || 'PLAYER'}
+                  </p>
+                  <p style={{ fontSize: '24px', color: '#888', margin: '0 0 8px 0', letterSpacing: '2px', textTransform: 'uppercase' }}>
                     {currentPlayer.gender} &nbsp;·&nbsp; Tier {currentPlayer.tier}
                   </p>
                   {currentPlayer.notes && (
-                    <p style={{ fontSize: '13px', color: '#888', margin: '8px 0 0 0' }}>
+                    <p style={{ fontSize: '15px', color: '#888', margin: '8px 0 0 0' }}>
                       {currentPlayer.notes}
                     </p>
                   )}

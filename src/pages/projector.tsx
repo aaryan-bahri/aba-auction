@@ -269,7 +269,7 @@ export default function Projector() {
               </p>
               <p className="bid-amount" style={{ color: ORANGE }}>
                 {auctionState?.current_bid
-                  ? `₹${auctionState.current_bid.toLocaleString()}`
+                  ? `₹${(auctionState.current_bid / 1000000).toFixed(1)}M`
                   : '—'}
               </p>
               <p style={{ color: '#777', fontSize: '10px', margin: '16px 0 8px 0', textTransform: 'uppercase', letterSpacing: '3px' }}>

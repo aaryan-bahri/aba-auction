@@ -149,7 +149,7 @@ export default function Projector() {
           font-weight: 800;
         }
         .sold-sub {
-          font-size: 18px;
+          font-size: 20px;
         }
         @media (min-width: 768px) {
           .projector-card {
@@ -195,7 +195,7 @@ export default function Projector() {
               const team = teams.find(t => t.name === auctionState.bidding_team)
               return team?.logo_url ? (
                 <img src={team.logo_url} alt={team.name}
-                  style={{ width: '80px', height: '80px', objectFit: 'contain', margin: '0 auto 12px auto', display: 'block' }}
+                  style={{ width: '100px', height: '100px', objectFit: 'contain', margin: '0 auto 12px auto', display: 'block' }}
                 />
               ) : null
             })()}
@@ -207,7 +207,7 @@ export default function Projector() {
                 {auctionState.bidding_team} used RTM
               </p>
             )}
-            <p style={{ fontSize: '16px', color: '#555', margin: '8px 0 0 0' }}>
+            <p style={{ fontSize: '20px', color: '#555', margin: '8px 0 0 0' }}>
               {auctionState.current_bid ? `₹${(auctionState.current_bid / 1000000).toFixed(1)}M` : ''}
             </p>
           </div>

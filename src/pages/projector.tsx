@@ -62,7 +62,7 @@ export default function Projector() {
             setAuctionState(prev => prev ? { ...prev, status: null, current_player_id: null, current_bid: 0, bidding_team: null } : null)
             setCurrentPlayer(null)
             supabase.from('auction_state').update({ status: null }).eq('id', 1)
-          }, 1500)
+          }, 2500)
         } else if (newState.current_player_id) {
           fetchPlayer(newState.current_player_id)
         }
@@ -149,7 +149,7 @@ export default function Projector() {
           font-weight: 800;
         }
         .sold-sub {
-          font-size: 20px;
+          font-size: 26px;
         }
         @media (min-width: 768px) {
           .projector-card {
@@ -195,7 +195,7 @@ export default function Projector() {
               const team = teams.find(t => t.name === auctionState.bidding_team)
               return team?.logo_url ? (
                 <img src={team.logo_url} alt={team.name}
-                  style={{ width: '100px', height: '100px', objectFit: 'contain', margin: '0 auto 12px auto', display: 'block' }}
+                  style={{ width: '180px', height: '180px', objectFit: 'contain', margin: '0 auto 12px auto', display: 'block' }}
                 />
               ) : null
             })()}
@@ -203,11 +203,11 @@ export default function Projector() {
               {auctionState.bidding_team}
             </p>
             {auctionState?.status === 'sold_rtm' && (
-              <p style={{ color: ORANGE, fontSize: '18px', letterSpacing: '3px', textTransform: 'uppercase', margin: '8px 0 0 0' }}>
+              <p style={{ color: ORANGE, fontSize: '24px', letterSpacing: '3px', textTransform: 'uppercase', margin: '8px 0 0 0' }}>
                 {auctionState.bidding_team} used RTM
               </p>
             )}
-            <p style={{ fontSize: '22px', color: 'white', margin: '8px 0 0 0' }}>
+            <p style={{ fontSize: '28px', color: 'white', margin: '8px 0 0 0' }}>
               {auctionState.current_bid ? `₹${(auctionState.current_bid / 1000000).toFixed(1)}M` : ''}
             </p>
           </div>

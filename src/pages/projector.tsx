@@ -149,7 +149,7 @@ export default function Projector() {
           font-weight: 800;
         }
         .sold-sub {
-          font-size: 32px;
+          font-size: 38px;
         }
         @media (min-width: 768px) {
           .projector-card {

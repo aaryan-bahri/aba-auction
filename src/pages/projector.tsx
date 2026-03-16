@@ -25,6 +25,13 @@ type AuctionState = {
   status: string | null
 }
 
+type Team = {
+  id: number
+  name: string
+  purse: number
+  logo_url: string | null
+}
+
 const ROUNDS = [
   { label: 'Round 1', sublabel: 'NCM T1 & T2' },
   { label: 'Round 2', sublabel: 'NCM T3 & T4' },
@@ -35,6 +42,7 @@ const ROUNDS = [
 export default function Projector() {
   const [auctionState, setAuctionState] = useState<AuctionState | null>(null)
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null)
+  const [teams, setTeams] = useState<Team[]>([])
 
   useEffect(() => {
     fetchAuctionState()
@@ -68,6 +76,8 @@ export default function Projector() {
 
   async function fetchAuctionState() {
     const { data } = await supabase.from('auction_state').select('*').eq('id', 1).single()
+    const { data: teamData } = await supabase.from('teams').select('*')
+    if (teamData) setTeams(teamData)
     if (data) {
       if (data.status === 'sold' || data.status === 'sold_rtm' || data.status === 'unsold') {
         await supabase.from('auction_state').update({ status: null }).eq('id', 1)
@@ -178,8 +188,19 @@ export default function Projector() {
         {(auctionState?.status === 'sold' || auctionState?.status === 'sold_rtm') && (
           <div style={{ textAlign: 'center' }}>
             <h1 className="sold-title" style={{ color: ORANGE }}>SOLD</h1>
-            <p className="sold-sub" style={{ color: 'white', margin: '0 0 8px 0' }}>
-              {currentPlayer?.name} — {auctionState.bidding_team}
+            <p className="sold-sub" style={{ color: 'white', margin: '0 0 16px 0' }}>
+              {currentPlayer?.name}
+            </p>
+            {(() => {
+              const team = teams.find(t => t.name === auctionState.bidding_team)
+              return team?.logo_url ? (
+                <img src={team.logo_url} alt={team.name}
+                  style={{ width: '80px', height: '80px', objectFit: 'contain', margin: '0 auto 12px auto', display: 'block' }}
+                />
+              ) : null
+            })()}
+            <p className="sold-sub" style={{ color: ORANGE, margin: '0 0 8px 0' }}>
+              {auctionState.bidding_team}
             </p>
             {auctionState?.status === 'sold_rtm' && (
               <p style={{ color: ORANGE, fontSize: '18px', letterSpacing: '3px', textTransform: 'uppercase', margin: '8px 0 0 0' }}>

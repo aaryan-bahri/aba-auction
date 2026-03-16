@@ -19,6 +19,7 @@ type Team = {
   id: number
   name: string
   purse: number
+  logo_url: string | null
 }
 
 export default function Teams() {
@@ -112,9 +113,18 @@ export default function Teams() {
             >
               {/* Team Header */}
               <div style={{ marginBottom: '16px', paddingBottom: '14px', borderBottom: '1px solid #1e1e1e' }}>
-                <h2 style={{ margin: '0 0 6px 0', fontSize: '15px', color: 'white', fontWeight: '600' }}>
-                  {team.name}
-                </h2>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+                  {team.logo_url && (
+                    <img
+                      src={team.logo_url}
+                      alt={team.name}
+                      style={{ width: '32px', height: '32px', objectFit: 'contain' }}
+                    />
+                  )}
+                  <h2 style={{ margin: 0, fontSize: '15px', color: 'white', fontWeight: '600' }}>
+                    {team.name}
+                  </h2>
+                </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <p style={{
                     margin: 0,

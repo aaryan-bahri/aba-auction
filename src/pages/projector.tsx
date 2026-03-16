@@ -207,7 +207,7 @@ export default function Projector() {
                 {auctionState.bidding_team} used RTM
               </p>
             )}
-            <p style={{ fontSize: '20px', color: '#555', margin: '8px 0 0 0' }}>
+            <p style={{ fontSize: '22px', color: '#888', margin: '8px 0 0 0' }}>
               {auctionState.current_bid ? `₹${(auctionState.current_bid / 1000000).toFixed(1)}M` : ''}
             </p>
           </div>

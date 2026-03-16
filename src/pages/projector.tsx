@@ -261,16 +261,16 @@ export default function Projector() {
                   </div>
                  <h1 className="player-name">{currentPlayer.name}</h1>
                   <p style={{ 
-                    fontSize: '20px', color: ORANGE, margin: '0 0 8px 0', 
+                    fontSize: '24px', color: ORANGE, margin: '0 0 8px 0', 
                     letterSpacing: '3px', textTransform: 'uppercase', fontWeight: '600' 
                   }}>
                     {currentPlayer.position || 'PLAYER'}
                   </p>
-                  <p style={{ fontSize: '20px', color: 'white', margin: '0 0 8px 0', letterSpacing: '2px', textTransform: 'uppercase' }}>
+                  <p style={{ fontSize: '24px', color: 'white', margin: '0 0 8px 0', letterSpacing: '2px', textTransform: 'uppercase' }}>
                     {currentPlayer.gender} &nbsp;·&nbsp; Tier {currentPlayer.tier}
                   </p>
                   {currentPlayer.notes && (
-                    <p style={{ fontSize: '15px', color: 'white', margin: '8px 0 0 0' }}>
+                    <p style={{ fontSize: '20px', color: 'white', margin: '8px 0 0 0' }}>
                       {currentPlayer.notes}
                     </p>
                   )}

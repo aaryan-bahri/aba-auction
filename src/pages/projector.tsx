@@ -62,7 +62,7 @@ export default function Projector() {
             setAuctionState(prev => prev ? { ...prev, status: null, current_player_id: null, current_bid: 0, bidding_team: null } : null)
             setCurrentPlayer(null)
             supabase.from('auction_state').update({ status: null }).eq('id', 1)
-          }, 3000)
+          }, 2000)
         } else if (newState.current_player_id) {
           fetchPlayer(newState.current_player_id)
         }

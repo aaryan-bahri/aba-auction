@@ -207,7 +207,7 @@ export default function Projector() {
                 {auctionState.bidding_team} used RTM
               </p>
             )}
-            <p style={{ fontSize: '22px', color: '#888', margin: '8px 0 0 0' }}>
+            <p style={{ fontSize: '22px', color: 'white', margin: '8px 0 0 0' }}>
               {auctionState.current_bid ? `₹${(auctionState.current_bid / 1000000).toFixed(1)}M` : ''}
             </p>
           </div>
@@ -217,7 +217,7 @@ export default function Projector() {
         {auctionState?.status === 'unsold' && (
           <div style={{ textAlign: 'center', padding: '0 16px' }}>
             <h1 className="sold-title" style={{ color: '#333' }}>UNSOLD</h1>
-            <p className="sold-sub" style={{ color: '#555', margin: 0 }}>{currentPlayer?.name}</p>
+            <p className="sold-sub" style={{ color: 'white', margin: 0 }}>{currentPlayer?.name}</p>
           </div>
         )}
 
@@ -231,12 +231,12 @@ export default function Projector() {
                   <p style={{ color: ORANGE, fontSize: '18px', margin: 0, textTransform: 'uppercase', letterSpacing: '4px' }}>
                     {auctionState?.is_final_call ? 'Final Call — ' : ''}{round.label}
                   </p>
-                  <p style={{ color: '#444', fontSize: '18px', margin: '6px 0 0 0', letterSpacing: '3px' }}>
+                  <p style={{ color: 'white', fontSize: '18px', margin: '6px 0 0 0', letterSpacing: '3px' }}>
                     {round.sublabel}
                   </p>
                 </>
               ) : (
-                <p style={{ color: '#333', fontSize: '13px', letterSpacing: '3px', textTransform: 'uppercase', margin: 0 }}>
+                <p style={{ color: 'white', fontSize: '13px', letterSpacing: '3px', textTransform: 'uppercase', margin: 0 }}>
                   Waiting to begin
                 </p>
               )}
@@ -266,11 +266,11 @@ export default function Projector() {
                   }}>
                     {currentPlayer.position || 'PLAYER'}
                   </p>
-                  <p style={{ fontSize: '20px', color: '#888', margin: '0 0 8px 0', letterSpacing: '2px', textTransform: 'uppercase' }}>
+                  <p style={{ fontSize: '20px', color: 'white', margin: '0 0 8px 0', letterSpacing: '2px', textTransform: 'uppercase' }}>
                     {currentPlayer.gender} &nbsp;·&nbsp; Tier {currentPlayer.tier}
                   </p>
                   {currentPlayer.notes && (
-                    <p style={{ fontSize: '15px', color: '#888', margin: '8px 0 0 0' }}>
+                    <p style={{ fontSize: '15px', color: 'white', margin: '8px 0 0 0' }}>
                       {currentPlayer.notes}
                     </p>
                   )}
@@ -284,7 +284,7 @@ export default function Projector() {
 
             {/* Bid Info */}
             <div style={{ textAlign: 'center' }}>
-              <p style={{ color: '#777', fontSize: '10px', margin: '0 0 8px 0', textTransform: 'uppercase', letterSpacing: '3px' }}>
+              <p style={{ color: 'white', fontSize: '10px', margin: '0 0 8px 0', textTransform: 'uppercase', letterSpacing: '3px' }}>
                 Current Bid
               </p>
               <p className="bid-amount" style={{ color: ORANGE }}>
@@ -292,7 +292,7 @@ export default function Projector() {
                   ? `₹${(auctionState.current_bid / 1000000).toFixed(1)}M`
                   : '—'}
               </p>
-              <p style={{ color: '#777', fontSize: '10px', margin: '16px 0 8px 0', textTransform: 'uppercase', letterSpacing: '3px' }}>
+              <p style={{ color: 'white', fontSize: '10px', margin: '16px 0 8px 0', textTransform: 'uppercase', letterSpacing: '3px' }}>
                 Bidding Team
               </p>
               <p className="bid-amount" style={{ color: 'white' }}>

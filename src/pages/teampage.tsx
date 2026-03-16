@@ -118,7 +118,7 @@ export default function Teams() {
                     <img
                       src={team.logo_url}
                       alt={team.name}
-                      style={{ width: '32px', height: '32px', objectFit: 'contain' }}
+                      style={{ width: '48px', height: '48px', objectFit: 'contain' }}
                     />
                   )}
                   <h2 style={{ margin: 0, fontSize: '15px', color: 'white', fontWeight: '600' }}>

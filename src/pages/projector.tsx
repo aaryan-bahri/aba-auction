@@ -283,8 +283,7 @@ export default function Projector() {
             </div>
 
             {/* Bid Info */}
-            <div className="bid-row">
-              <div style={{ textAlign: 'center' }}>
+            <div style={{ textAlign: 'center' }}>
               <p style={{ color: '#777', fontSize: '10px', margin: '0 0 8px 0', textTransform: 'uppercase', letterSpacing: '3px' }}>
                 Current Bid
               </p>
@@ -299,8 +298,6 @@ export default function Projector() {
               <p className="bid-amount" style={{ color: 'white' }}>
                 {auctionState?.bidding_team || '—'}
               </p>
-            </div>
-
             </div>
           </>
         )}

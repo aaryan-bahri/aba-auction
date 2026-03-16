@@ -78,6 +78,13 @@ export default function Admin() {
     return team.purse - requiredReserve
   }
 
+  function canAffordGender(team: Team, gender: string): boolean {
+  const genderCount = players.filter(p => p.sold_to_team === team.name && p.gender === gender).length
+  if (gender === 'NCM' && genderCount >= 2) return false
+  if (gender === 'CM' && genderCount >= 4) return false
+  return true
+}
+
   function pickRandomPlayer(roundIndex: number, finalCall: boolean) {
     const round = ROUNDS[roundIndex]
     const pool = players.filter(p =>
@@ -121,6 +128,9 @@ export default function Admin() {
       const rosterSize = players.filter(p => p.sold_to_team === team.name).length
       const reserve = Math.max(0, (6 - rosterSize) - 1)
       return alert(`${team.name} cannot afford this bid! They must keep ${reserve}M in reserve for remaining roster spots.`)
+    }
+    if (!canAffordGender(team, currentPlayer.gender)) {
+      return alert(`${team.name} already has the maximum number of ${currentPlayer.gender} players!`)
     }
     await supabase.from('players').update({
       sold: true, sold_to_team: team.name, sold_price: Number(bidPrice) * 1000000
@@ -368,7 +378,8 @@ export default function Admin() {
           }}>
             {teams.map(team => {
               const overCap = typeof bidPrice === 'number' && bidPrice * 1000000 > 115000000
-              const affordable = !overCap && !(typeof bidPrice === 'number' && bidPrice * 1000000 > effectivePurse(team))
+              const genderBlocked = currentPlayer ? !canAffordGender(team, currentPlayer.gender) : false
+              const affordable = !overCap && !genderBlocked && !(typeof bidPrice === 'number' && bidPrice * 1000000 > effectivePurse(team))
               const isSelected = selectedTeamId === team.id
               return (
                 <button
@@ -397,7 +408,7 @@ export default function Admin() {
                   <div style={{ fontWeight: '600', marginBottom: '4px' }}>{team.name}</div>
                   <div style={{ fontSize: '11px', opacity: 0.7 }}>
                     ₹{(effectivePurse(team) / 1000000).toFixed(1)}M
-                    {overCap ? ' — exceeds cap' : !affordable ? ' — insufficient' : ''}
+                    {overCap ? ' — exceeds cap' : genderBlocked ? ` — ${currentPlayer?.gender} full` : !affordable ? ' — insufficient' : ''}
                   </div>
                 </button>
               )

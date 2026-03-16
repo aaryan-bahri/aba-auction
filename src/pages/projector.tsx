@@ -149,7 +149,7 @@ export default function Projector() {
           font-weight: 800;
         }
         .sold-sub {
-          font-size: 30px;
+          font-size: 32px;
         }
         @media (min-width: 768px) {
           .projector-card {
@@ -170,7 +170,7 @@ export default function Projector() {
             font-size: 96px;
           }
           .sold-sub {
-            font-size: 28px;
+            font-size: 32px;
           }
         }
       `}</style>
@@ -195,7 +195,7 @@ export default function Projector() {
               const team = teams.find(t => t.name === auctionState.bidding_team)
               return team?.logo_url ? (
                 <img src={team.logo_url} alt={team.name}
-                  style={{ width: '240px', height: '240px', objectFit: 'contain', margin: '0 auto 12px auto', display: 'block' }}
+                  style={{ width: '400px', height: '400px', objectFit: 'contain', margin: '0 auto 12px auto', display: 'block' }}
                 />
               ) : null
             })()}

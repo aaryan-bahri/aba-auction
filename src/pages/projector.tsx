@@ -138,7 +138,7 @@ export default function Projector() {
           align-items: center;
         }
         .bid-amount {
-          font-size: 32px;
+          font-size: 45px;
           font-weight: 700;
           margin: 0;
         }

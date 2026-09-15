@@ -1,73 +1,26 @@
-# React + TypeScript + Vite
+# ABA 9.0 Auction Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A deployed, real-time basketball tournament player auction management platform. This system streamlines the sports auction workflow, facilitating live bidding, roster tracking, and budget management for 120 players across 20 teams.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Live Bidding System: Dynamic, real-time auction interface to manage player bids smoothly.
+- Roster and Team Management: Track budgets, purse constraints, and squad compositions for all 20 participating teams.
+- Player Database: Efficiently handle a comprehensive pool of 120 players, including their base prices, categories, and statistics.
+- Real-time Sync: Powered by Supabase to ensure immediate updates across all active clients.
 
-## React Compiler
+## Demo Access
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+If you are exploring the application or testing the workflow, you can use the following demo credentials:
 
-## Expanding the ESLint configuration
+* DEMO PIN: 123456
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Frontend: React / Next.js
+- Database and Real-time Sync: Supabase
+- Styling: Tailwind CSS
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Deployment
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+This is a fully deployed project built to handle live, concurrent auction scenarios. Access the live application to view the real-time auction environment in action. Find it at: https://aaryan-bahri.github.io/aba-auction/

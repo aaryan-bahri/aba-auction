@@ -2,6 +2,9 @@
 
 A deployed, real-time basketball tournament player auction management platform. This system streamlines the sports auction workflow, facilitating live bidding, roster tracking, and budget management for 120 players across 20 teams.
 
+## Notice
+The project is currently non-functional, this due to Supabase free tier limitations. I am working on migrating the project to use Firebase (and/or looking to get a Supabase Pro Subscription).
+
 ## Features
 
 - Live Bidding System: Dynamic, real-time auction interface to manage player bids smoothly.
